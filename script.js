@@ -68,26 +68,28 @@ const updateOperation = (event) => {
 
 const calculateResult = (event) => {
     const button = event.target;
-    console.log('operation in getResult is '+operation);
+    console.log('operation in calculateResult is '+operation);
     
     console.log('Calculating Result... Intense Work in the background.');
-    if (operation == 'add'){
-        result = parseFloat(previousOperand) + parseFloat(currentOperand);    
-    }
-    if (operation == 'substract'){
-        result = parseFloat(previousOperand) - parseFloat(currentOperand);    
-
-    }
-    if (operation == 'multiply'){
-        result = parseFloat(previousOperand) * parseFloat(currentOperand); 
-    }  
-
-    if (operation == 'divide'){
-        result = parseFloat(previousOperand) / parseFloat(currentOperand); 
-
-    }
-    if (operation == 'percentage'){
-        result = parseFloat((previousOperand * 0.01)) * parseFloat(currentOperand);
+    switch (operation){
+        case 'add':
+            result = parseFloat(previousOperand) + parseFloat(currentOperand); 
+            break;
+        case 'substract':
+            result = parseFloat(previousOperand) - parseFloat(currentOperand); 
+            break;
+        case 'multiply':
+            result = parseFloat(previousOperand) * parseFloat(currentOperand); 
+            break;
+        case 'divide':
+            result = parseFloat(previousOperand) / parseFloat(currentOperand); 
+            break;
+        case 'percentage':
+            result = parseFloat((previousOperand * 0.01)) * parseFloat(currentOperand);
+            break;
+        default: 
+            console.log('Error');
+            
     }
     console.log('Result: '+ result);
     currentNumber = result;
