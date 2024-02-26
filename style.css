@@ -1,0 +1,113 @@
+
+@font-face {
+    font-family: 'DSEG14ClassicMini-Regular';
+    src: url('../font/DSEG14ClassicMini-Regular.ttf') format('truetype');
+  }
+ 
+
+.grid{
+    display: grid;
+    gap: 0.5rem;
+    
+    grid-template-columns: repeat(4, minmax(40px, 40px));
+    grid-auto-rows: 40px;
+
+    justify-content: center;
+}
+
+.calc-body{
+    background-color: rgba(245, 245, 220, 0.943);
+    width: 220px;
+    padding: 10px;
+    border-radius: 10px 10px 0 0; 
+    border-top: 1px solid rgb(190, 190, 169); 
+    border-left: 4px solid rgb(166, 166, 147); 
+    border-bottom: 10px solid rgb(190, 190, 169); 
+    border-right: 10px solid rgb(156, 156, 138); 
+}
+
+.calc-background{
+    background-color: black;
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px 10px 0 0; 
+}
+
+.one-liner{
+    grid-column: span 4;
+    padding: 10px;
+}
+
+.half-liner{
+    grid-column: span 2;
+    padding: 10px;
+}
+
+.calc-btn{
+    border : solid 1px; 
+    text-align: center;
+    background-color: white;
+    padding-top: 8px;
+    border-radius: 2px;
+    border-top: 1px solid rgb(177, 177, 177); 
+    border-left: 1px solid rgb(145, 145, 145);
+    border-bottom: 2px solid rgb(145, 145, 145);
+    border-right: 2px solid rgb(122, 122, 122);
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.calc-number:hover, .calc-reset:hover, #decimal:hover {
+    filter: brightness(80%) saturate(80%);
+}
+
+.calc-operator:hover, #equal:hover {
+    filter: brightness(120%) saturate(120%);
+}
+
+.calc-operator{
+    background-color: rgba(245, 245, 220, 0.943);
+    border-top: 1px solid rgb(190, 190, 169); 
+    border-left: 1px solid rgb(190, 190, 169); 
+    border-bottom: 2px solid rgb(190, 190, 169); 
+    border-right: 2px solid rgb(156, 156, 138); 
+}
+
+#equal{
+    grid-column: span 2;
+    background-color: rgb(255, 102, 0);
+    border-top: 1px solid rgb(242, 108, 18);
+    border-left: 1px solid rgb(221, 89, 1); 
+    border-bottom: 2px solid rgb(221, 89, 1); 
+    border-right: 2px solid rgb(202, 81, 1);
+}
+
+#calc-name{
+    text-align: right;
+    color: #CECECE;
+    font-family: sans-serif;
+    font-size: 12px;
+    padding-top: 17px;
+}
+
+
+#logo{
+    text-align: left;
+}
+
+#screen{
+    background-color: #4A0404;
+    color: red;
+    text-align: right;
+    letter-spacing: 7px;
+    font-family: 'DSEG14ClassicMini-Regular';
+    text-shadow: -1px -1px 4px red;
+    border-bottom: solid 1px #240101;
+    border-right: solid 2px #3f0303;
+    border-top: solid 2px #240101;
+    border-left: solid 2px #240101;
+    user-select: none;
+}
+
