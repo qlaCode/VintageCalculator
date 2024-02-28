@@ -4,8 +4,8 @@ let operatorButtons = document.querySelectorAll('.calc-operator');
 let bazookaButton = document.getElementById('bazooka');
 let clearEntryButton = document.getElementById('clearEntry');
 let equalButton = document.getElementById('equal');
-let decimalButton = document.getElementById('decimal'); //later
-let percentageButton = document.getElementById('percentage'); //later
+let decimalButton = document.getElementById('decimal');
+let percentageButton = document.getElementById('percentage');
 let screen = document.getElementById('screen');
 let operation;
 let previousNumber = '';
@@ -37,32 +37,39 @@ const updateCurrentValue = (event) => {
         currentOperand = currentOperand + currentNumber;
         screen.textContent = currentOperand
     }
-/* 
-    if(currentNumber.length === 9){
-        currentNumber.shift();
-        currentNumber[0] = 'C';
-        screen.textContent = currentNumber.join('');
-    }
 
+    if(currentOperand.length >= 9){
+        screen.textContent = 'Error'
+    }
+    
+    /* 
     if(currentNumber.length > 9){
         sizeExceeded = true
         currentNumber.shift();
         screen.textContent = currentNumber.join('');
     }
- */
+    */
     numberCount += 1;
     previousNumber = currentNumber;
 };
 
 const updateOperation = (event) => {
-    const button = event.target;
-    operation = button.id;
-    previousOperand = currentOperand;
-    currentOperand = '';
-    currentNumber = '';
-    console.log('Operation: '+ operation);
-    console.log('numberCount: '+ numberCount);
-    screen.textContent = button.textContent;
+
+    if(currentOperand.length < 9){
+        const button = event.target;
+        operation = button.id;
+        previousOperand = currentOperand;
+        currentOperand = '';
+        currentNumber = '';
+        console.log('Operation: '+ operation);
+        console.log('numberCount: '+ numberCount);
+        screen.textContent = button.textContent;
+        
+    }
+    
+    if(currentOperand.length >= 9){
+        screen.textContent = 'Error'
+    }
 
 };
 
@@ -116,11 +123,6 @@ const bazooka = (event) => {
     screen.textContent = '.';
     console.log('C Clicked');
 };
-const later = (event) => {
-    const button = event.target;
-    console.log('Under development. Come back later.');
-    screen.textContent = 'LATER.'
-}
 
 /// /// /// /// /// /// /// /// /// /// /// ///
 /// /// /// /// EVENT LISTENERS /// /// /// /// 

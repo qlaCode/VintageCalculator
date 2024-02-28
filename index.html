@@ -7,36 +7,37 @@
     <style>
         @import url('./style.css');
     </style>
+    <script src="script-oop.js" defer></script>
 </head>
 <body>
     <div class="calc-body">
         <div class="calc-background">
             <section class="grid">
-                <div class="one-liner" id="screen">HELLO.</div>
+                <output class="one-liner" id="screen">HELLO.</output>
                 <div class="half-liner" id="logo"><img src="./img/logo.png" alt="Logo TI" height="30px"></div>
                 <div class="half-liner" id="calc-name">Datamath II</div>
-                <div class="calc-btn calc-reset" id="bazooka">C</div>
-                <div class="calc-btn calc-reset" id="clearEntry">CE</div>
-                <div class="calc-btn calc-operator" id="percentage">%</div>
-                <div class="calc-btn calc-operator" id="divide">/</div>
-                <div class="calc-btn calc-number" id="seven">7</div>
-                <div class="calc-btn calc-number" id="eight">8</div>
-                <div class="calc-btn calc-number" id="nine">9</div>
-                <div class="calc-btn calc-operator" id="multiply">x</div>
-                <div class="calc-btn calc-number" id="four">4</div>
-                <div class="calc-btn calc-number" id="five">5</div>
-                <div class="calc-btn calc-number" id="six">6</div>
-                <div class="calc-btn calc-operator" id="substract">-</div>
-                <div class="calc-btn calc-number" id="one">1</div>
-                <div class="calc-btn calc-number" id="two">2</div>
-                <div class="calc-btn calc-number" id="three">3</div>
-                <div class="calc-btn calc-operator" id="add">+</div>
-                <div class="calc-btn calc-number" id="zero">0</div>
-                <div class="calc-btn calc-number" id="decimal">.</div>
-                <div class="calc-btn" id="equal">=</div>
+                <div class="calc-btn calc-reset" data-key="Escape" id="bazooka">C</div>
+                <div class="calc-btn calc-reset" data-key="Backspace" id="clearEntry">CE</div>
+                <div class="calc-btn calc-operator" data-key="%" id="percentage">%</div>
+                <div class="calc-btn calc-operator" data-key="/" id="divide">/</div>
+                <div class="calc-btn calc-number" data-key="7" id="seven">7</div>
+                <div class="calc-btn calc-number" data-key="8" id="eight">8</div>
+                <div class="calc-btn calc-number" data-key="9" id="nine">9</div>
+                <div class="calc-btn calc-operator" data-key="*" id="multiply">x</div>
+                <div class="calc-btn calc-number" data-key="4" id="four">4</div>
+                <div class="calc-btn calc-number" data-key="5" id="five">5</div>
+                <div class="calc-btn calc-number" data-key="6" id="six">6</div>
+                <div class="calc-btn calc-operator" data-key="-" id="substract">-</div>
+                <div class="calc-btn calc-number" data-key="1" id="one">1</div>
+                <div class="calc-btn calc-number" data-key="2" id="two">2</div>
+                <div class="calc-btn calc-number" data-key="3" id="three">3</div>
+                <div class="calc-btn calc-operator" data-key="+" id="add">+</div>
+                <div class="calc-btn calc-number" data-key="0" id="zero">0</div>
+                <div class="calc-btn calc-number" data-key="." id="decimal">.</div>
+                <div class="calc-btn" data-key="Enter" id="equal">=</div>
             </section>
         </div>
     </div>
-    <script src="script.js" defer></script>
+    
 </body>
 </html>
