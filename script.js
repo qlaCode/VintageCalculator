@@ -1,157 +1,156 @@
-let buttons = document.querySelectorAll('.calc-btn');
-let numberButtons = document.querySelectorAll('.calc-number');
-let operatorButtons = document.querySelectorAll('.calc-operator');
-let bazookaButton = document.getElementById('bazooka');
-let clearEntryButton = document.getElementById('clearEntry');
-let equalButton = document.getElementById('equal');
-let decimalButton = document.getElementById('decimal');
-let percentageButton = document.getElementById('percentage');
-let screen = document.getElementById('screen');
-let operation;
-let previousNumber = '';
-let currentNumber = '';
-let currentOperand = '';
-let previousOperand = '';
-let numberCount = 0;
-let result;
-let sizeExceeded = false
+class Calculator {
+    constructor() {
+        this.buttons = document.querySelectorAll('.calc-btn');
+        this.numberButtons = document.querySelectorAll('.calc-number');
+        this.operatorButtons = document.querySelectorAll('.calc-operator');
+        this.bazookaButton = document.getElementById('bazooka');
+        this.clearEntryButton = document.getElementById('clearEntry');
+        this.equalButton = document.getElementById('equal');
+        this.decimalButton = document.getElementById('decimal');
+        this.percentageButton = document.getElementById('percentage');
+        this.screen = document.getElementById('screen');
+        this.operation = '';
+        this.previousNumber = '';
+        this.currentNumber = '';
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.numberCount = 0;
+        this.result;
+        this.sizeExceeded = false;
 
-const logClick = (event) => {
-    const button = event.target;
-    console.log('Button Clicked: '+ button.textContent);
-};
-
-const updateCurrentValue = (event) => {
-    const button = event.target;
-    
-    if(numberCount == 0){
-        currentNumber = button.textContent;
-        console.log('Clicked Number: ' + button.textContent);
-        console.log('Current Number: ' + currentNumber);
-        currentOperand = currentNumber;
-        screen.textContent = currentOperand;
+        this.myEventListeners();
     }
 
-    if(numberCount > 0){
-        currentNumber = button.textContent; 
-        currentOperand = currentOperand + currentNumber;
-        screen.textContent = currentOperand
-    }
+    myEventListeners() {
+        this.buttons.forEach(button => {
+            button.addEventListener('click', this.logClick.bind(this));
+        });
 
-    if(currentOperand.length >= 9){
-        screen.textContent = 'Error'
-    }
-    
-    /* 
-    if(currentNumber.length > 9){
-        sizeExceeded = true
-        currentNumber.shift();
-        screen.textContent = currentNumber.join('');
-    }
-    */
-    numberCount += 1;
-    previousNumber = currentNumber;
-};
+        this.numberButtons.forEach(button => {
+            button.addEventListener('click', this.updateCurrentValue.bind(this));
+        });
 
-const updateOperation = (event) => {
-
-    if(currentOperand.length < 9){
-        const button = event.target;
-        operation = button.id;
-        previousOperand = currentOperand;
-        currentOperand = '';
-        currentNumber = '';
-        console.log('Operation: '+ operation);
-        console.log('numberCount: '+ numberCount);
-        screen.textContent = button.textContent;
+        this.operatorButtons.forEach(button => {
+            button.addEventListener('click', this.updateOperation.bind(this));
+        });
         
+        this.equalButton.addEventListener('click', this.calculateResult.bind(this));
+        this.clearEntryButton.addEventListener('click', this.clearEntry.bind(this));
+        this.bazookaButton.addEventListener('click', this.bazooka.bind(this));
+        document.addEventListener('keydown', this.handleKeyPress.bind(this));
     }
-    
-    if(currentOperand.length >= 9){
-        screen.textContent = 'Error'
+
+    logClick(event) {
+        const button = event.target;
+        console.log('Button Clicked: ' + button.textContent);
     }
 
-};
+    updateCurrentValue(event) {
+        const button = event.target;
 
-const calculateResult = (event) => {
-    const button = event.target;
-    console.log('operation in calculateResult is '+operation);
-    
-    console.log('Calculating Result... Intense Work in the background.');
-    switch (operation){
-        case 'add':
-            result = parseFloat(previousOperand) + parseFloat(currentOperand); 
-            break;
-        case 'substract':
-            result = parseFloat(previousOperand) - parseFloat(currentOperand); 
-            break;
-        case 'multiply':
-            result = parseFloat(previousOperand) * parseFloat(currentOperand); 
-            break;
-        case 'divide':
-            result = parseFloat(previousOperand) / parseFloat(currentOperand); 
-            break;
-        case 'percentage':
-            result = parseFloat((previousOperand * 0.01)) * parseFloat(currentOperand);
-            break;
-        default: 
-            console.log('Error');
-            
+        if (this.numberCount === 0) {
+            this.currentNumber = button.textContent;
+            console.log('Clicked Number: ' + button.textContent);
+            console.log('Current Number: ' + this.currentNumber);
+            this.currentOperand = this.currentNumber;
+            this.screen.textContent = this.currentOperand;
+        }
+
+        if (this.numberCount > 0) {
+            this.currentNumber = button.textContent;
+            this.currentOperand = this.currentOperand + this.currentNumber;
+            this.screen.textContent = this.currentOperand;
+        }
+
+        if (this.currentOperand.length >= 9) {
+            this.screen.textContent = 'Error';
+        }
+
+        this.numberCount += 1;
+        this.previousNumber = this.currentNumber;
     }
-    console.log('Result: '+ result);
-    currentNumber = result;
-    currentOperand = result;
-    screen.textContent = result;
-};
 
-const clearEntry = (event) => {
-    console.log('Operation: Reset Entry');
-    currentNumber = '';
-    currentOperand = '';
-    console.log('CE Clicked');  
-    screen.textContent = '.';
-};
+    updateOperation(event) {
+        if (this.currentOperand.length < 9) {
+            const button = event.target;
+            this.operation = button.id;
+            this.previousOperand = this.currentOperand;
+            this.currentOperand = '';
+            this.currentNumber = '';
+            console.log('Operation: ' + this.operation);
+            console.log('numberCount: ' + this.numberCount);
+            this.screen.textContent = button.textContent;
+        }
 
-//clears all entries - button C
-const bazooka = (event) => {
-    console.log('Operation: Clear All');
-    previousNumber = '';
-    currentNumber = '';
-    currentOperand = '';
-    previousOperand = '';
-    numberCount = 0;
-    screen.textContent = '.';
-    console.log('C Clicked');
-};
+        if (this.currentOperand.length >= 9) {
+            this.screen.textContent = 'Error';
+        }
+    }
 
-/// /// /// /// /// /// /// /// /// /// /// ///
-/// /// /// /// EVENT LISTENERS /// /// /// /// 
-/// /// /// /// /// /// /// /// /// /// /// ///
+    calculateResult(event) {
+        const button = event.target;
+        console.log('Operation in calculateResult is ' + this.operation);
 
-/// Capture click on any button, with the value
-buttons.forEach(button => {
-    //button.addEventListener('click', () => logClick(button.textContent));   
-    button.addEventListener('click', logClick);   
-});
+        console.log('Calculating Result... Intense Work in the background.');
+        switch (this.operation) {
+            case 'add':
+                this.result = parseFloat(this.previousOperand) + parseFloat(this.currentOperand);
+                break;
+            case 'substract':
+                this.result = parseFloat(this.previousOperand) - parseFloat(this.currentOperand);
+                break;
+            case 'multiply':
+                this.result = parseFloat(this.previousOperand) * parseFloat(this.currentOperand);
+                break;
+            case 'divide':
+                this.result = parseFloat(this.previousOperand) / parseFloat(this.currentOperand);
+                break;
+            case 'percentage':
+                this.result = parseFloat((this.previousOperand * 0.01)) * parseFloat(this.currentOperand);
+                break;
+            default:
+                console.log('Error');
+        }
+        console.log('Result: ' + this.result);
+        this.currentNumber = this.result;
+        this.currentOperand = this.result;
+        this.screen.textContent = this.result;
+    }
 
-/// Capture click on NUMBER buttons, show value in screen.
-numberButtons.forEach(button => {
-    button.addEventListener('click', updateCurrentValue);
- });
+    clearEntry(event) {
+        console.log('Operation: Reset Entry');
+        this.currentNumber = '';
+        this.currentOperand = '';
+        console.log('CE Clicked');
+        this.screen.textContent = '.';
+    }
 
-/// Capture click on OPERATION buttons
-operatorButtons.forEach(button => {
-    button.addEventListener('click', updateOperation)
-});
+    bazooka(event) {
+        console.log('Operation: Clear All');
+        this.previousNumber = '';
+        this.currentNumber = '';
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.numberCount = 0;
+        this.screen.textContent = '.';
+        console.log('C Clicked');
+    }
 
-/// Capture click on CE buttons
-clearEntryButton.addEventListener('click', clearEntry);
+    later(event) {
+        const button = event.target;
+        console.log('Under development. Come back later.');
+        this.screen.textContent = 'LATER.';
+    }
 
-/// Capture click on C buttons
-bazookaButton.addEventListener('click', bazooka);
+    handleKeyPress(event) {
+        const key = event.key;
+        const button = document.querySelector(`.calc-btn[data-key="${key}"]`);
 
-/// Capture click on EQUAL buttons
-equalButton.addEventListener('click', calculateResult);
+        if (button) {
+            button.click();
+        }
+    }
+}
 
-/// Capture click on decimal buttons
-// like a normal number button
+// Instantiate Calculator
+const calculator = new Calculator();
