@@ -3,7 +3,7 @@ This project is a digital reproduction of a calculator produced in the 70's, a T
 Features:
 - It allows basic mathematical operations: addition, substraction, multiplication, division, percentage.
 - Clear All and Clear Entry functions.
-- Use of Decimal.
+- Use of Decimal is possible. Results are rounded with 2 decimal places.
 - Keyboard can be used for input.
 - Values wiht 9 characters or more shows error.
 - User can pursue his calculation after getting a first result.

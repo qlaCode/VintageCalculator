@@ -76,7 +76,7 @@ class Calculator {
             this.currentOperand = '';
             this.currentNumber = '';
             console.log('Operation: ' + this.operation);
-            console.log('numberCount: ' + this.numberCount);
+            console.log('startNewNumber: ' + this.startNewNumber);
             this.screen.textContent = button.textContent;
         }
 
@@ -90,22 +90,19 @@ class Calculator {
         console.log('Operation in calculateResult is ' + this.operation);
 
         console.log('Calculating Result... Intense Work in the background.');
+
         switch (this.operation) {
             case 'add':
                     this.result = parseFloat(this.previousOperand) + parseFloat(this.currentOperand);
-                    this.result = this.result.toFixed(3)
                 break;
             case 'substract':
                     this.result = parseFloat(this.previousOperand) - parseFloat(this.currentOperand);
-                    this.result = this.result.toFixed(3)
                 break;
                 case 'multiply':
                     this.result = parseFloat(this.previousOperand) * parseFloat(this.currentOperand);
-                    this.result = this.result.toFixed(3)
                 break;
             case 'divide':
                     this.result = parseFloat(this.previousOperand) / parseFloat(this.currentOperand);
-                    this.result = this.result.toFixed(3)
                 break;
             case 'percentage':
                     this.result = parseFloat((this.previousOperand * 0.01)) * parseFloat(this.currentOperand);
@@ -117,15 +114,21 @@ class Calculator {
         this.currentNumber = this.result;
         this.currentOperand = this.result;
         this.previousOperand = this.result;
-
-        if (this.currentOperand.length >= 9) {
-            this.screen.textContent = 'Error';
-        }
-        if (this.currentOperand.length < 9) {
-            this.screen.textContent = this.result;
-        }
         this.startNewNumber = true;
+        this.formatResult(this.result.toFixed(2));
+    }
 
+    formatResult(num){
+        let decimalPart = num.toString().split('.')[1];
+        if (num.length >= 9) {
+            this.screen.textContent = 'Error';
+        } else if(decimalPart == 0){
+            console.log('Num with 0 decimal '+num);
+            this.screen.textContent = Number(num);
+        } else{
+            console.log('Num with decimals '+parseFloat(num).toFixed(2));
+            this.screen.textContent = parseFloat(num).toFixed(2);
+        }
     }
 
     clearEntry(event) {
