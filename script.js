@@ -10,11 +10,10 @@ class Calculator {
         this.percentageButton = document.getElementById('percentage');
         this.screen = document.getElementById('screen');
         this.operation = '';
-        this.previousNumber = '';
         this.currentNumber = '';
         this.currentOperand = '';
         this.previousOperand = '';
-        this.numberCount = 0;
+        this.startNewNumber = true;
         this.result;
         this.sizeExceeded = false;
 
@@ -48,7 +47,7 @@ class Calculator {
     updateCurrentValue(event) {
         const button = event.target;
 
-        if (this.numberCount === 0) {
+        if (this.startNewNumber === true) {
             this.currentNumber = button.textContent;
             console.log('Clicked Number: ' + button.textContent);
             console.log('Current Number: ' + this.currentNumber);
@@ -56,7 +55,7 @@ class Calculator {
             this.screen.textContent = this.currentOperand;
         }
 
-        if (this.numberCount > 0) {
+        if (this.startNewNumber === false) {
             this.currentNumber = button.textContent;
             this.currentOperand = this.currentOperand + this.currentNumber;
             this.screen.textContent = this.currentOperand;
@@ -66,8 +65,7 @@ class Calculator {
             this.screen.textContent = 'Error';
         }
 
-        this.numberCount += 1;
-        this.previousNumber = this.currentNumber;
+        this.startNewNumber = false;
     }
 
     updateOperation(event) {
@@ -94,19 +92,23 @@ class Calculator {
         console.log('Calculating Result... Intense Work in the background.');
         switch (this.operation) {
             case 'add':
-                this.result = parseFloat(this.previousOperand) + parseFloat(this.currentOperand);
+                    this.result = parseFloat(this.previousOperand) + parseFloat(this.currentOperand);
+                    this.result = this.result.toFixed(3)
                 break;
             case 'substract':
-                this.result = parseFloat(this.previousOperand) - parseFloat(this.currentOperand);
+                    this.result = parseFloat(this.previousOperand) - parseFloat(this.currentOperand);
+                    this.result = this.result.toFixed(3)
                 break;
-            case 'multiply':
-                this.result = parseFloat(this.previousOperand) * parseFloat(this.currentOperand);
+                case 'multiply':
+                    this.result = parseFloat(this.previousOperand) * parseFloat(this.currentOperand);
+                    this.result = this.result.toFixed(3)
                 break;
             case 'divide':
-                this.result = parseFloat(this.previousOperand) / parseFloat(this.currentOperand);
+                    this.result = parseFloat(this.previousOperand) / parseFloat(this.currentOperand);
+                    this.result = this.result.toFixed(3)
                 break;
             case 'percentage':
-                this.result = parseFloat((this.previousOperand * 0.01)) * parseFloat(this.currentOperand);
+                    this.result = parseFloat((this.previousOperand * 0.01)) * parseFloat(this.currentOperand);
                 break;
             default:
                 console.log('Error');
@@ -114,7 +116,16 @@ class Calculator {
         console.log('Result: ' + this.result);
         this.currentNumber = this.result;
         this.currentOperand = this.result;
-        this.screen.textContent = this.result;
+        this.previousOperand = this.result;
+
+        if (this.currentOperand.length >= 9) {
+            this.screen.textContent = 'Error';
+        }
+        if (this.currentOperand.length < 9) {
+            this.screen.textContent = this.result;
+        }
+        this.startNewNumber = true;
+
     }
 
     clearEntry(event) {
@@ -127,7 +138,6 @@ class Calculator {
 
     bazooka(event) {
         console.log('Operation: Clear All');
-        this.previousNumber = '';
         this.currentNumber = '';
         this.currentOperand = '';
         this.previousOperand = '';
